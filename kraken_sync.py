@@ -47,18 +47,15 @@ def main():
             link = entry.find('atom:link', namespace).attrib['href']
             updated = entry.find('atom:updated', namespace).text
             
-            bq_payload.append({
-                "timestamp": timestamp_iso,
-                "domain": "KRAKEN",
-                "entity_id": title, 
-                "signal_type": f"SEC Form {form_type}",
-                "raw_data": {
-                    "form": form_type,
-                    "title": title,
-                    "link": link,
-                    "filing_date": updated
-                }
-            })
+    bq_payload.append({
+    "timestamp": timestamp_iso,
+    "filing_title": title,
+    "signal_type": f"SEC Form {form_type}",
+    "form_type": form_type,
+    "document_link": link,
+    "filing_date": updated
+})
+
             
     if bq_payload:
         try:
