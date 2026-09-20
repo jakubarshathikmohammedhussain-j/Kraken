@@ -1,0 +1,25 @@
+name: Build Tier 1 Master Index
+
+on:
+  workflow_dispatch:
+
+jobs:
+  execute-index-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install requests pandas lxml google-cloud-bigquery db-dtypes html5lib
+
+      - name: Run Index Builder
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        run: python build_tier1_index.py
+        
