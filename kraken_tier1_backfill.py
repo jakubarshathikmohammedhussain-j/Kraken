@@ -52,7 +52,7 @@ def main():
 
     # 2. Iterate through all CIKs with rate-limiting protection
     for i, target in enumerate(targets):
-        cik = target['cik'].zfill(10)
+        cik = str(target['cik']).zfill(10)
         ticker = target['ticker']
         url = f"https://data.sec.gov/submissions/CIK{cik}.json"
 
